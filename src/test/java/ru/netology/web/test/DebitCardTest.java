@@ -63,7 +63,7 @@ public class DebitCardTest {
 
     @Test
     //Вручную проходит
-    @DisplayName("3. Номер карты из 16 цифр, отличный от 4444 4444 4444 4441 или 4444 4444 4444 4442")
+    @DisplayName("3. Номер карты из 16 цифр, отличный от 1111 2222 3333 4444")
     void showsAFailureIfADifferentCardIsSpecified() {
         debitPage = mainPage.goToDebitPage();
         debitPage.fillInCardInfo(DataGenerator.getCardNumberNotFromRange(), DataGenerator.getApprovedMonth(), DataGenerator.getApprovedYear(), DataGenerator.getApprovedOwner(), DataGenerator.getApprovedCVV());
