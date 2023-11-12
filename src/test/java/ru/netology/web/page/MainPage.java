@@ -22,5 +22,10 @@ public class MainPage {
         return new DebitPage();
     }
 
+    public CreditPage goToCreditPage() {
+        buyInCreditButton.click();
+        return new CreditPage();
 
+
+    }
 }

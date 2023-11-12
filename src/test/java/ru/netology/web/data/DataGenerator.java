@@ -16,7 +16,6 @@ public class DataGenerator {
     }
 
 
-
     public static String getApprovedMonth() {
         String randomMonth = String.valueOf(fakerEn.number().numberBetween(1, 13));
         if (randomMonth.length() == 1) {
@@ -131,4 +130,6 @@ public class DataGenerator {
         return fakerEn.number().digits(2);
     }
 
+
 }
+

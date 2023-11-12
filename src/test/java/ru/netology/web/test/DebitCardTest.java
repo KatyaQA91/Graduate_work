@@ -1,5 +1,4 @@
 package ru.netology.web.test;
-
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import lombok.SneakyThrows;
@@ -51,7 +50,7 @@ public class DebitCardTest {
     @Test
     //Вручную не проходит, тексты уведомлений должны быть иными
     @DisplayName("2. Отправка пустой формы")
-    void showAllErrors() {
+    void showAllErrorsDebitCard() {
         debitPage = mainPage.goToDebitPage();
         debitPage.fillInCardInfo(DataGenerator.getEmptyCardsNumber(), DataGenerator.getEmptyMonth(), DataGenerator.getEmptyYear(), DataGenerator.getEmptyOwnercCards(), DataGenerator.getEmptyCVV());
         debitPage.checkCardNumberText("Поле обязательно для заполнения");
@@ -64,7 +63,7 @@ public class DebitCardTest {
     @Test
     //Вручную проходит
     @DisplayName("3. Номер карты из 16 цифр, отличный от 1111 2222 3333 4444")
-    void showsAFailureIfADifferentCardIsSpecified() {
+    void showsAnErrorIfADifferentDebitCardNumberIsSpecified() {
         debitPage = mainPage.goToDebitPage();
         debitPage.fillInCardInfo(DataGenerator.getCardNumberNotFromRange(), DataGenerator.getApprovedMonth(), DataGenerator.getApprovedYear(), DataGenerator.getApprovedOwner(), DataGenerator.getApprovedCVV());
         debitPage.checkIfFail();
@@ -73,7 +72,7 @@ public class DebitCardTest {
     @Test
     //Вручную проходит
     @DisplayName("4. Номер карты из 16 нулей")
-    void showFailureByMapWithAllZeros() {
+    void showDebitCardRefusalWithAllZeros() {
         debitPage = mainPage.goToDebitPage();
         debitPage.fillInCardInfo(DataGenerator.getCardNumberWithAllZeros(), DataGenerator.getApprovedMonth(), DataGenerator.getApprovedYear(), DataGenerator.getApprovedOwner(), DataGenerator.getApprovedCVV());
         debitPage.checkIfFail();
@@ -82,7 +81,7 @@ public class DebitCardTest {
     @Test
     //Вручную проходит
     @DisplayName("5. Номер карты, состоящий из менее чем 16 цифр")
-    void showCardVerificationError() {
+    void showDebitCardVerificationError() {
         debitPage = mainPage.goToDebitPage();
         debitPage.fillInCardInfo(DataGenerator.getCardNumberWithLessNumbers(), DataGenerator.getApprovedMonth(), DataGenerator.getApprovedYear(), DataGenerator.getApprovedOwner(), DataGenerator.getApprovedCVV());
         debitPage.checkCardNumberText("Неверный формат");
@@ -91,7 +90,7 @@ public class DebitCardTest {
     @Test
     //Вручную не проходит, текст уведомления должен быть иной
     @DisplayName("6. Пустой номер карты")
-    void showErrorСheckingУmptyСardТumber() {
+    void showErrorСheckingУmptyDebitСardNumber() {
         debitPage = mainPage.goToDebitPage();
         debitPage.fillInCardInfo(DataGenerator.getEmptyCardsNumber(), DataGenerator.getApprovedMonth(), DataGenerator.getApprovedYear(), DataGenerator.getApprovedOwner(), DataGenerator.getApprovedCVV());
         debitPage.checkCardNumberText("Поле обязательно для заполнения");
@@ -100,7 +99,7 @@ public class DebitCardTest {
     @Test
     //Вручную проходит
     @DisplayName("7. В поле 'Номер карты' введены буквы и специальные символы")
-    void showErrorInputtingLettersAndSymbolsInCardNumber() {
+    void showErrorInputtingLettersAndSymbolsInDebitCardNumber() {
         debitPage = mainPage.goToDebitPage();
         debitPage.fillInCardNumber(DataGenerator.getCardNumberWithLettersAndSymbols());
         debitPage.emptyCardNumberInField();
@@ -109,7 +108,7 @@ public class DebitCardTest {
     @Test
     //Вручную проходит
     @DisplayName("8. Месяц, больше 12")
-    void showErrorCheckingMonthAndExpirationDateIfYouHaveMoreThan12() {
+    void showDebitCardErrorCheckingMonthAndExpirationDateIfYouHaveMoreThan12() {
         debitPage = mainPage.goToDebitPage();
         debitPage.fillInCardInfo(DataGenerator.getApprovedCardNumber(), DataGenerator.getMonthWithMoreThan12(), DataGenerator.getApprovedYear(), DataGenerator.getApprovedOwner(), DataGenerator.getApprovedCVV());
         debitPage.checkMonthText("Неверно указан срок действия карты");
@@ -118,7 +117,7 @@ public class DebitCardTest {
     @Test
     //Вручную проходит
     @DisplayName("9. Месяц из 1 цифры")
-    void showErrorCheckingForWrongMonthFormat() {
+    void showDebitCardErrorCheckingForWrongMonthFormat() {
         debitPage = mainPage.goToDebitPage();
         debitPage.fillInCardInfo(DataGenerator.getApprovedCardNumber(), DataGenerator.getMonthWith1Symbol(), DataGenerator.getApprovedYear(), DataGenerator.getApprovedOwner(), DataGenerator.getApprovedCVV());
         debitPage.checkMonthText("Неверный формат");
@@ -127,7 +126,7 @@ public class DebitCardTest {
     @Test
     //Вручную не проходит, текст уведомления должен быть иной
     @DisplayName("10. Пустое поле 'Месяц'")
-    void showEmptyMonthInputError() {
+    void showDebitCardEmptyMonthInputError() {
         debitPage = mainPage.goToDebitPage();
         debitPage.fillInCardInfo(DataGenerator.getApprovedCardNumber(), DataGenerator.getEmptyMonth(), DataGenerator.getApprovedYear(), DataGenerator.getApprovedOwner(), DataGenerator.getApprovedCVV());
         debitPage.checkMonthText("Поле обязательно для заполнения");
@@ -136,7 +135,7 @@ public class DebitCardTest {
     @Test
     //Вручную не проходит, форма отправляется без ошибок
     @DisplayName("11. Месяц из двух нулей")
-    void showInvalidErrorCheckingMonthExpirationDateFrom00() {
+    void showDebitCardInvalidErrorCheckingMonthExpirationDateFrom00() {
         debitPage = mainPage.goToDebitPage();
         debitPage.fillInCardInfo(DataGenerator.getApprovedCardNumber(), DataGenerator.getMonthWith00(), DataGenerator.getApprovedYear(), DataGenerator.getApprovedOwner(), DataGenerator.getApprovedCVV());
         debitPage.checkMonthText("Неверно указан срок действия карты");
@@ -145,7 +144,7 @@ public class DebitCardTest {
     @Test
     //Вручную проходит
     @DisplayName("12. В поле 'Месяц' введены буквы и специальные символы")
-    void showErrorWhenEnteringLettersAndSymbols() {
+    void showDebitCardErrorWhenEnteringLettersAndSymbols() {
         debitPage = mainPage.goToDebitPage();
         debitPage.fillInMonth(DataGenerator.getMonthWithLettersAndSymbols());
         debitPage.emptyMonthInField();
@@ -154,7 +153,7 @@ public class DebitCardTest {
     @Test
     //Вручную проходит
     @DisplayName("13. Год меньше текущего")
-    void showIncorrectExpirationDateIfTheYearIsLessThanTheCurrentOne() {
+    void showDebitCardIncorrectExpirationDateIfTheYearIsLessThanTheCurrentOne() {
         debitPage = mainPage.goToDebitPage();
         debitPage.fillInCardInfo(DataGenerator.getApprovedCardNumber(), DataGenerator.getApprovedMonth(), DataGenerator.getYearLessThanCurrent(), DataGenerator.getApprovedOwner(), DataGenerator.getApprovedCVV());
         debitPage.checkYearText("Истёк срок действия карты");
@@ -163,7 +162,7 @@ public class DebitCardTest {
     @Test
     //Вручную проходит
     @DisplayName("14. Год из 1 цифры")
-    void showErrorWhenEnteringOneDigitinTheYearField() {
+    void showDebitCardErrorWhenEnteringOneDigitinTheYearField() {
         debitPage = mainPage.goToDebitPage();
         debitPage.fillInCardInfo(DataGenerator.getApprovedCardNumber(), DataGenerator.getApprovedMonth(), DataGenerator.getYearWith1Symbol(), DataGenerator.getApprovedOwner(), DataGenerator.getApprovedCVV());
         debitPage.checkYearText("Неверный формат");
@@ -172,7 +171,7 @@ public class DebitCardTest {
     @Test
     //Вручную не проходит, текст уведомления должен быть иной
     @DisplayName("15. Пустое поле 'Год'")
-    void showErrorIfTheYearFieldIsEmpty() {
+    void showDebitCardErrorIfTheYearFieldIsEmpty() {
         debitPage = mainPage.goToDebitPage();
         debitPage.fillInCardInfo(DataGenerator.getApprovedCardNumber(), DataGenerator.getApprovedMonth(), DataGenerator.getEmptyYear(), DataGenerator.getApprovedOwner(), DataGenerator.getApprovedCVV());
         debitPage.checkYearText("Поле обязательно для заполнения");
@@ -182,7 +181,7 @@ public class DebitCardTest {
     //Вручную проходит
     @DisplayName("16. Год из двух нулей")
     void
-    showErrorWhenEntering00InTheYearField() {
+    showDebitCardErrorWhenEntering00InTheYearField() {
         debitPage = mainPage.goToDebitPage();
         debitPage.fillInCardInfo(DataGenerator.getApprovedCardNumber(), DataGenerator.getApprovedMonth(), DataGenerator.getYearWith00(), DataGenerator.getApprovedOwner(), DataGenerator.getApprovedCVV());
         debitPage.checkYearText("Истёк срок действия карты");
@@ -199,7 +198,7 @@ public class DebitCardTest {
     @Test
     //Вручную не проходит, поле принимает любые значения
     @DisplayName("18. В поле 'Владелец' введены кириллические символы")
-    void showErrorWhenEnteringTheCardNameInCyrillic() {
+    void showErrorWhenEnteringTheDebitCardNameInCyrillic() {
         debitPage = mainPage.goToDebitPage();
         debitPage.fillInCardInfo(DataGenerator.getApprovedCardNumber(), DataGenerator.getApprovedMonth(), DataGenerator.getApprovedYear(), DataGenerator.getOwnerWithCyrillicLetters(), DataGenerator.getApprovedCVV());
         debitPage.checkOwnerText("Неверный формат");
@@ -208,7 +207,7 @@ public class DebitCardTest {
     @Test
     //Вручную не проходит, поле принимает любые значения
     @DisplayName("19. В поле 'Владелец' введены цифры и специальные символы кроме дефиса, пробела и апострофа")
-    void ShowErrorWhenEnteringNumericAndSpecialCharactersInTheOwnersCardField() {
+    void ShowErrorWhenEnteringNumericAndSpecialCharactersInTheOwnersDebitCardField() {
         debitPage = mainPage.goToDebitPage();
         debitPage.fillInOwner(DataGenerator.getOwnerWithSymbols());
         debitPage.emptyCardOwnerInField();
@@ -217,7 +216,7 @@ public class DebitCardTest {
     @Test
     //Вручную проходит
     @DisplayName("20. Пустое поле 'Владелец'")
-    void ShowErrorWhenEnteringEmptyNameInTheOwnerNameField() {
+    void ShowDebitCardErrorWhenEnteringEmptyNameInTheOwnerNameField() {
         debitPage = mainPage.goToDebitPage();
         debitPage.fillInCardInfo(DataGenerator.getApprovedCardNumber(), DataGenerator.getApprovedMonth(), DataGenerator.getApprovedYear(), DataGenerator.getEmptyOwnercCards(), DataGenerator.getApprovedCVV());
         debitPage.checkOwnerText("Поле обязательно для заполнения");
@@ -226,7 +225,7 @@ public class DebitCardTest {
     @Test
     //Вручную проходит
     @DisplayName("21. Поле 'CVC/CVV' из 1 или 2 цифр")
-    void ShowErrorWhenEnteringOneOrTwoDigitsInAFieldCVV() {
+    void ShowDebitCardErrorWhenEnteringOneOrTwoDigitsInAFieldCVV() {
         debitPage = mainPage.goToDebitPage();
         debitPage.fillInCardInfo(DataGenerator.getApprovedCardNumber(), DataGenerator.getApprovedMonth(), DataGenerator.getApprovedYear(), DataGenerator.getApprovedOwner(), DataGenerator.getCVVWith2Symbols());
         debitPage.checkCVVText("Неверный формат");
@@ -235,7 +234,7 @@ public class DebitCardTest {
     @Test
     //Вручную не проходит, текст уведомления должен быть иной
     @DisplayName("22. Пустое поле 'CVC/CVV'")
-    void ShowErrorWhenEnteringAFieldEmptyCVV() {
+    void ShowDebitCardErrorWhenEnteringAFieldEmptyCVV() {
         debitPage = mainPage.goToDebitPage();
         debitPage.fillInCardInfo(DataGenerator.getApprovedCardNumber(), DataGenerator.getApprovedMonth(), DataGenerator.getApprovedYear(), DataGenerator.getApprovedOwner(), DataGenerator.getEmptyCVV());
         debitPage.checkCVVText("Поле обязательно для заполнения");
@@ -244,7 +243,7 @@ public class DebitCardTest {
     @Test
     //Вручную не проходит, форма отправляется без ошибок
     @DisplayName("23. Поле 'CVC/CVV' из трех нулей")
-    void ShowErrorWhenEntering000InTheFieldCVV() {
+    void ShowDebitCardErrorWhenEntering000InTheFieldCVV() {
         debitPage = mainPage.goToDebitPage();
         debitPage.fillInCardInfo(DataGenerator.getApprovedCardNumber(), DataGenerator.getApprovedMonth(), DataGenerator.getApprovedYear(), DataGenerator.getApprovedOwner(), DataGenerator.getCVVWith00());
         debitPage.checkCVVText("Неверное значение");
@@ -253,7 +252,7 @@ public class DebitCardTest {
     @Test
     //Вручную проходит
     @DisplayName("24. В поле 'CVC/CVV' введены буквы и специальные символы")
-    void ShowErrorWhenEnteringLettersAndSymbolsInTheField() {
+    void ShowDebitCardErrorWhenEnteringLettersAndSymbolsInTheField() {
         debitPage = mainPage.goToDebitPage();
         debitPage.fillInCVV(DataGenerator.getCVVWithLettersAndSymbols());
         debitPage.emptyCVVInField();
