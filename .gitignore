@@ -44,7 +44,7 @@ bin/
 Thumbs.db*
 .DS_Store*
 node_modules
-.idea
+/.idea
 target
 *.iml
 /build
